@@ -10,12 +10,18 @@ function getBooksByAuthor(books,author)
     .filter(book => book.author === author)
     .map(book => book.title);
 }
+//Alternative function to search for books by an author partial name
+function getBooksByAuthorPartial(books, author){
+    return books
+    .filter(book => book.author.includes(author))
+    .map(book =>book.title);}
+
 //Function to count available books
 function countAvailableBooks(books) {return books.filter(book => book.isAvailable).length;
 }
 //Function to lend a book
 function lendBook(books, title) {
-    const book = books.find(book.title === title);
+    const book = books.find(book => book.title === title);
 if (book) {
     if (book.isAvailable){book.isAvailable = false;
         return `Book "${title}" successfully issued!`;
@@ -27,8 +33,9 @@ if (book) {
 }
 }
 //Function  testing
-console.log(getBookByAuthor(books, "Fyodor Dostoevsky")); // ["Crime and Punishment", "The Idiot"]
-console.log(countAvailableBooks(book)); //2
+console.log(getBooksByAuthor(books, "Fyodor Dostoevsky")); // ["Crime and Punishment", "The Idiot"]
+console.log(getBooksByAuthorPartial(books, "Fyodor")); // ["Crime and Punishment", "The Idiot"]
+console.log(countAvailableBooks(books)); //2
 console.log(lendBook(books, "War and Peace")); //"Book "War and Peace" successfully issued!"
-console.log(lend.Book(books, "War and Peace")); //"Book "War and Peace" currently unavailable!"
+console.log(lendBook(books, "War and Peace")); //"Book "War and Peace" currently unavailable!"
 console.log(books.find(book => book.title === "War and Peace").isAvailable); //false
